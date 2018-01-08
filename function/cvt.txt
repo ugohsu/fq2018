@@ -1,0 +1,18 @@
+Sub cvt()
+    Dim buf, tmp, outbuf, path, outpath As String
+    path = InputBox("xlsファイルが保存されているパスを入力してください。")
+    outpath = InputBox("csvファイルを保存したいパスを入力してください。")
+    
+    buf = Dir(path & "\*.*")
+    Do
+        Workbooks.Open path & "\" & buf
+        Cells.Replace What:="/", Replacement:=""
+        
+        tmp = Replace(outpath & "\" & buf, ".xls", ".csv")
+        ActiveWorkbook.SaveAs Filename:=tmp, FileFormat:=xlCSV
+        ActiveWorkbook.Close False
+        
+        buf = Dir()
+    Loop While buf <> ""
+    
+End Sub

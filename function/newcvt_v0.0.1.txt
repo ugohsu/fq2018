@@ -1,0 +1,52 @@
+'''
+'''	変更点
+'''
+' ・保存形式を、csv 形式から txt 形式に変更した (∵ コンマ区切りで保存す
+'   る場合、「会社属性」などのデータ文字列にコンマが入るファイルにおいて
+'   不具合が生じる)
+' ・ファイル名の取得は最初にすべておこなうことにした
+
+Sub cvt()
+   ' 変数定義
+   Dim buf() As String, tmpbuf, tmp, path, outpath As String, i As Long
+   path = InputBox("xlsファイルが保存されているパスを入力してください。")
+   outpath = InputBox("txtファイルを保存したいパスを入力してください。")
+   Application.Visible = False
+
+   ' path, outpath の修正
+   If Right(path, 1) <> "\" Then
+      path = path & "\"
+   End If
+   
+   If Right(outpath, 1) <> "\" Then
+      outpath = outpath & "\"
+   End If
+
+   ' ディレクトリにあるファイル名の取得 (buf に保存)
+   tmp = Dir(path & "\*.xls")
+   tmpbuf = tmp
+   Do
+      tmp = Dir()
+      tmpbuf = tmpbuf & ";" & tmp
+   Loop While tmp <> ""
+   tmpbuf = Left(tmpbuf, (Len(tmpbuf) - 1))
+   buf = Split(tmpbuf, ";")
+
+   ' 置換と保存
+   For i = 0 To UBound(buf)
+      Workbooks.Open path & buf(i)
+      Cells.Replace what:="/", replacement:=""
+      ' Cells.NumberFormat = "@"  '置換の代替案 (全セル文字列化)
+      tmp = outpath & Left(buf(i), (Len(buf(i)) - 4)) & ".txt"
+      ActiveWorkbook.SaveAs Filename:=tmp, FileFormat:=xlText
+      ActiveWorkbook.Close False
+   Next i
+
+   ' プロセスの終了
+   '保存したことにする (保存はしない)
+   ThisWorkbook.Saved = True   ' ThisWorkBookは、実行しているブック
+   'Excel を終了する
+   Application.Quit
+   'Book を閉じる
+   ThisWorkbook.Close False
+End Sub
