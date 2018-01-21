@@ -2,7 +2,7 @@
 
 # base
 
-- base.txt
+- `base.txt`
     - 2018-01-08
 - `base_stock.txt`
     - 2018-01-13
@@ -106,3 +106,28 @@ forrewrite.py
 ## 一括 arrnfq
 
 `find -iname '*_r.nfq' | xargs -i arrnfq base/base.txt 20 {}`
+
+## 一括 unifiles
+
+fq2017/data まで移動し、
+
+`find -name 'csv' > unifilesScript.sh`
+
+を実行。
+その後、function/unifilesScript.sh のように加筆し、実行
+
+## stockprice の unit ディレクトリの作成
+
+各種 stockprice のディレクトリまで移動し、function/mkunit.sh を実行
+
+## stockprice のファイル名問題の修正
+
+FQ の株価データについて、企業 ID のリクエストと得られる結果についての
+不一致が存在した (2017-03-24 時点)。
+(2018-01-20 時点においては、日次データのみ)
+
+delunit スクリプトは、リクエストした ID
+(unit のファイル名) と、ファイルに収録されている企業コード (日経会社コ
+ード) とが一致するかチェックし、一致しない ID のファイル名を抽出する。
+
+`delunit.py --encoding cp932 -n 2 * | xargs rm`
