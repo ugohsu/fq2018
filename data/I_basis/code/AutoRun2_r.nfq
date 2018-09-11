@@ -13,7 +13,7 @@ RESET TARGET;NOTFOUND NOVALUE;TARGET $TARGET,((N0000001));
 #####
 ##### ON,レポートコマンド送信
 #####
-REPORT<CONV AUTO;DAYFMT NONE;FREQ M;INT 195001 TO 202312;COMPRESS ON;NOTFOUND NOVALUE;NACTRL CALC ASIS,FREQCONV ASIS,RAWDATA ASIS;ACCSET TYPE ANNUAL;FORSET TYPE LAST,PAST ACTUAL,RTYPE LAST;PRCSET HYP 0,PRE N,EX A;> $ROW={$TARGET,$SUB1,$SUB2,$SUB3,$INT},$COL={(FINFSTA'G_FST_IDAFFLT)};
+REPORT<CONV AUTO;DAYFMT NONE;FREQ M;INT 195001 TO 202312;COMPRESS ON;NOTFOUND NOVALUE;NACTRL CALC ASIS,FREQCONV ASIS,RAWDATA ASIS;ACCSET TYPE ANNUAL;FORSET TYPE LAST,PAST ACTUAL,RTYPE LAST;PRCSET HYP 0,PRE N,EX A;> $ROW={$TARGET,$SUB1,$SUB2,$SUB3,$INT},$COL={(FINFSTA'G_FST_IDBASIC)};
 #####
 ##### ON,検索条件シートに出力するサブキーの指定
 #####
@@ -25,9 +25,9 @@ REPORT<CONV AUTO;DAYFMT NONE;FREQ M;INT 195001 TO 202312;COMPRESS ON;NOTFOUND NO
 #####
 ##### ON,検索条件シートに出力するアイテムの指定
 #####
-!ITEM {$ALL$,0,{{"FINFSTA'G_FST_IDAFFLT",0,GROUP,31,"#","","","関係会社取引","Affiliates Related Items",0,"集合・グループ","SET","","","","","","","","","",""}}},{#,1,{{"FINFSTA'G_FST_IDAFFLT",0,GROUP,31,"#","","","関係会社取引","Affiliates Related Items",0,"集合・グループ","SET","","","","","","","","","",""}}}
+!ITEM {$ALL$,0,{{"FINFSTA'G_FST_IDBASIC",0,GROUP,154,"#","","","基本項目","Basic Attribute Items",0,"集合・グループ","SET","","","","","","","","","",""}}},{#,1,{{"FINFSTA'G_FST_IDBASIC",0,GROUP,154,"#","","","基本項目","Basic Attribute Items",0,"集合・グループ","SET","","","","","","","","","",""}}}
 #####
 ##### ON,レポート結果出力
 #####
-MAKEXLS /F="C:\Users\ohsu\Documents\Fqtemp.xlsx"
+MAKEXLS /F=C:\ACQFQ\fq2018\data\I_basis\xls\foofoo.xls
 #####

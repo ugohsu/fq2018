@@ -19,8 +19,8 @@ def gf(path):
 if __name__ == '__main__':
 
     # 基本ディレクトリ
-    displaypath = "C:/ACQFQ/fq2017"
-    basepath = "/home/ugos/share/ACQFQ/fq2017"
+    displaypath = "C:/ACQFQ/fq2018"
+    basepath = "/home/ugos/Dropbox/fq2018"
 
     # コピー対象のファイルの取得
     flist = filter(nfq.search, gf(os.path.join(basepath, "data")))

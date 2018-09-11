@@ -1,0 +1,33 @@
+#####
+##### ON,データベースの接続
+#####
+CONNECT CORPORATE;NOTFOUND NOVALUE;;SELECTKEY NKCODE;;RESET TARGET;
+#####
+##### ON,TARGETの送信
+#####
+RESET TARGET;NOTFOUND NOVALUE;TARGET $TARGET,((N0000001));
+#####
+##### ON,レポート出力及び、X12出力オプション
+#####
+!SELECT HEADER 2,LANGUAGE 1,UNIT ON,CHECKREPORTINFO OFF,INFOSHEET ON
+#####
+##### ON,レポートコマンド送信
+#####
+REPORT<CONV AUTO;DAYFMT NONE;FREQ M;INT 195001 TO 202312;COMPRESS ON;NOTFOUND NOVALUE;NACTRL CALC ASIS,FREQCONV ASIS,RAWDATA ASIS;ACCSET TYPE ANNUAL;FORSET TYPE LAST,PAST ACTUAL,RTYPE LAST;PRCSET HYP 0,PRE N,EX A;> $ROW={$TARGET,$INT},$COL={(CORPORATE'G_CORP_COMCODE,CORPORATE'G_CORP_NAME,CORPORATE'G_CORP_INDCLS,CORPORATE'G_CORP_MRKT,CORPORATE'G_CORP_ISSUE,CORPORATE'G_CORP_AHEAD)};
+#####
+##### ON,検索条件シートに出力するサブキーの指定
+#####
+!SUBKEY P:CORPORATE
+#####
+##### ON,検索条件シートに出力するターゲットの指定
+#####
+!TARGET {N0000001,SINGLE,"極洋","KYOKUYO",1}
+#####
+##### ON,検索条件シートに出力するアイテムの指定
+#####
+!ITEM {$ALL$,0,{{"CORPORATE'G_CORP_COMCODE",0,GROUP,4,"#","","","会社コード","Company Code Items",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_NAME",0,GROUP,28,"#","","","社名・所在地・代表者","Company Name, Address, etc",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_INDCLS",0,GROUP,12,"#","","","業種分類","Industry Code",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_MRKT",0,GROUP,17,"#","","","上場取引所等","Basic Listing Information",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_ISSUE",0,GROUP,8,"#","","","株式関係","Stock Related Items",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_AHEAD",0,GROUP,54,"#","","","先取り情報","Advance Data",0,"集合・グループ","SET","","","","","","","","","",""}}},{#,1,{{"CORPORATE'G_CORP_COMCODE",0,GROUP,4,"#","","","会社コード","Company Code Items",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_NAME",0,GROUP,28,"#","","","社名・所在地・代表者","Company Name, Address, etc",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_INDCLS",0,GROUP,12,"#","","","業種分類","Industry Code",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_MRKT",0,GROUP,17,"#","","","上場取引所等","Basic Listing Information",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_ISSUE",0,GROUP,8,"#","","","株式関係","Stock Related Items",0,"集合・グループ","SET","","","","","","","","","",""},{"CORPORATE'G_CORP_AHEAD",0,GROUP,54,"#","","","先取り情報","Advance Data",0,"集合・グループ","SET","","","","","","","","","",""}}}
+#####
+##### ON,レポート結果出力
+#####
+MAKEXLS /F=C:\ACQFQ\fq2018\data\I_attr\xls\foofoo.xls
+#####
